@@ -10,7 +10,7 @@ COPY ./pnpm-lock.yaml ./pnpm-lock.yaml
 COPY ./pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY ./turbo.json ./turbo.json
 
-COPY ./apps/ws ./apps/ws
+COPY ./apps/websocket ./apps/websocket
 
 RUN pnpm install 
 RUN pnpm run db:generate
