@@ -10,7 +10,7 @@ jobs:
   build: 
     runs-on: ubuntu-latest
     steps:
-      - name : Checkout the code
+      - name: Checkout the code
         uses: actions/checkout@v2
 
       - name: Docker login
@@ -27,8 +27,8 @@ jobs:
           push: true
           tags: sayan3055/todo-app-backend:${{github.sha}}
 
-      - run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
-        chmod 600 ~/ssh_key
-        ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@13.53.133.196 "docker stop user_backend || true && docker rm user_backend || true && docker run --name user_backend -d -p 8080:8080 sayan3055/todo-app-backend:${{ github.sha }}"
-
+      - name: Deploy to server
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+          chmod 600 ~/ssh_key
+          ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@13.53.133.196 "docker stop user_backend || true && docker rm user_backend || true && docker run --name user_backend -d -p 8080:8080 sayan3055/todo-app-backend:${{ github.sha }}"
